@@ -13,9 +13,8 @@ public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Inte
 			+ "AND prenotazione.data=:dataPre "
 			+ "AND campo.id=:idCampo",
 			nativeQuery=true)
-			List<Prenotazione>cerca(
+			List<Prenotazione>cercaPrenotazione(
 					@Param("idCampo") Integer idCampo,
 					@Param("dataPre") String dataPre)
 					;
 }
-//SISTEMARE QUERY SOPRA

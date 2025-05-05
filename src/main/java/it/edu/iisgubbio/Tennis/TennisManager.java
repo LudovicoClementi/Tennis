@@ -27,7 +27,7 @@ public class TennisManager {
 		}
 	
 	//TUTTE LE PRENOTAZIONI
-	@GetMapping("/prenotazione")
+	@GetMapping("/prenotazioni")
 	public List<Prenotazione> mostraPrenotazione(){
 		return archivioPrenotazione.findAll();
 		}
@@ -46,6 +46,20 @@ public class TennisManager {
 			@RequestParam String data
 			) {
 		
-		return archivioPrenotazione.cerca(id,data);
+		return archivioPrenotazione.cercaPrenotazione(id,data);
 	}
+	
+	@GetMapping("/giocatori")
+	public List<Giocatore> mostraGiocatori(){
+		return archivioGiocatore.findAll();
+		}
+	
+	@GetMapping("/giocatore")
+	public List<Giocatore> mostraGiocatoreNome(
+			@RequestParam(required = false) String nome ,
+			@RequestParam(required = false) String cognome
+			){
+		
+		return archivioGiocatore.cercaGiocatore(nome,cognome);
+		}
 }
