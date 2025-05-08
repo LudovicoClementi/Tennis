@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +24,14 @@ public class TennisManager {
 	
 	//TUTTI I CAMPI
 	@GetMapping("/campi")
-	public List<Campo> mostraCampo(){
+	public List<Campo> campoOra(
+			@RequestParam(required = false) Integer ora
+			){
+		if(ora!=null) {
+			return archivioCampo.vediOra(ora);
+		}else {
 		return archivioCampo.findAll();
+		}
 		}
 	
 	//TUTTE LE PRENOTAZIONI
@@ -39,22 +47,28 @@ public class TennisManager {
 		return archivioCampo.findById(id);
 	}
 	
-	//d
+	
 	@GetMapping("/campo/{id}/prenotazione")
 	public List<Prenotazione> mostraPrenData(
 			@PathVariable Integer id,
-			@RequestParam String data
+			@RequestParam String data,
+			@RequestParam(required = false) Integer aInter,
+			@RequestParam(required = false) Integer zInter
 			) {
-		
-		return archivioPrenotazione.cercaPrenotazione(id,data);
+		if(aInter!=null) {
+			return archivioPrenotazione.cercaPrenotazioneOra(id,data,aInter,zInter);
+
+		}else {
+			return archivioPrenotazione.cercaPrenotazione(id,data);
+		}
 	}
 	
-	@GetMapping("/giocatori")
+	@GetMapping("/tuttigiocatori")
 	public List<Giocatore> mostraGiocatori(){
 		return archivioGiocatore.findAll();
 		}
 	
-	@GetMapping("/giocatore")
+	@GetMapping("/giocatori")
 	public List<Giocatore> mostraGiocatoreNome(
 			@RequestParam(required = false) String nome ,
 			@RequestParam(required = false) String cognome
@@ -62,4 +76,16 @@ public class TennisManager {
 		
 		return archivioGiocatore.cercaGiocatore(nome,cognome);
 		}
+	
+	@PostMapping("/giocatore")
+	public void insertGiocatore(
+	        @RequestParam String nome,
+	        @RequestParam String cognome,
+	        @RequestParam String data_nascita,
+	        @RequestParam String email,
+	        @RequestParam String telefono
+	) {
+	    telefono = "+" + telefono;
+	    archivioGiocatore.inserisciGiocatore(nome, cognome, data_nascita, email, telefono);
+	}
 }

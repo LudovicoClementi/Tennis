@@ -15,6 +15,20 @@ public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Inte
 			nativeQuery=true)
 			List<Prenotazione>cercaPrenotazione(
 					@Param("idCampo") Integer idCampo,
-					@Param("dataPre") String dataPre)
-					;
+					@Param("dataPre") String dataPre);
+	
+	
+	@Query(value="SELECT prenotazione.* "
+			+ "FROM prenotazione,campo "
+			+ "WHERE prenotazione.campo_id=campo.id "
+			+ "AND prenotazione.data=:dataPre "
+			+ "AND (prenotazione.ora_inizio > :aInter AND prenotazione.ora_inizio < :zInter) "
+			+ "OR (prenotazione.ora_fine > :aInter AND prenotazione.ora_fine < :zInter) "
+			+ "AND campo.id=:idCampo ",
+			nativeQuery=true)
+			List<Prenotazione>cercaPrenotazioneOra(
+					@Param("idCampo") Integer idCampo,
+					@Param("dataPre") String dataPre,
+					@Param("aInter") Integer aInter,
+					@Param("zInter") Integer zInter);
 }
