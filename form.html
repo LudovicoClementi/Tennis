@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Giocatore</title>
+</head>
+<body>
+    <h1>Inserisci Prenotazione</h1>
+    <form action="http://localhost:8080/campo/1/prenotazione" method="POST">
+        <label for="campo_id">Nome:</label>
+        <input type="number" id="nome" name="campo_id" required><br><br>
+        
+        <label for="giocatore_id">Cognome:</label>
+        <input type="number" id="cognome" name="giocatore_id" required><br><br>
+        
+        <label for="data">Data Nascita:</label>
+        <input type="data" id="data_nascita" name="data" required><br><br>
+        
+        <label for="ora_inizio">Email:</label>
+        <input type="number" id="email" name="ora_inizio" required><br><br>
+        
+        <label for="ora_fine">Telefono:</label>
+        <input type="number" id="telefono" name="ora_fine" required><br><br>
+        
+        <button type="submit">Invia</button>
+    </form>
+</body>
+</html>
