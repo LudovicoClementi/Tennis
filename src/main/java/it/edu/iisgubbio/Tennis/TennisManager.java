@@ -52,8 +52,8 @@ public class TennisManager {
 	public List<Prenotazione> mostraPrenData(
 			@PathVariable Integer id,
 			@RequestParam String data,
-			@RequestParam(required = false) Integer aInter,
-			@RequestParam(required = false) Integer zInter
+			@RequestParam(name="inizio", required = false) Integer aInter,
+			@RequestParam(name="fine" ,required = false) Integer zInter
 			) {
 		if(aInter!=null) {
 			return archivioPrenotazione.cercaPrenotazioneOra(id,data,aInter,zInter);
@@ -77,7 +77,13 @@ public class TennisManager {
 		return archivioGiocatore.cercaGiocatore(nome,cognome);
 		}
 	
-	@PostMapping("/giocatore")
+	
+	 @PostMapping("/giocatore")
+	    public void inserisciGiocatore(@RequestBody Giocatore td) {
+	        archivioGiocatore.save( td );
+	    }
+
+	/*@PostMapping("/giocatore")
 	public void insertGiocatore(
 	        @RequestParam String nome,
 	        @RequestParam String cognome,
@@ -87,5 +93,16 @@ public class TennisManager {
 	) {
 	    telefono = "+" + telefono;
 	    archivioGiocatore.inserisciGiocatore(nome, cognome, data_nascita, email, telefono);
-	}
+	}*/
+	 
+	 @PostMapping("/campo/{campo_id}/prenotazione")
+	 public void insertPrenotazione(
+		        @PathVariable Integer campo_id,
+		        @RequestParam Integer giocatore_id,
+		        @RequestParam String data,
+		        @RequestParam Integer ora_inizio,
+		        @RequestParam Integer ora_fine
+		) {
+		    archivioPrenotazione.inserisciPrenotazione(campo_id, giocatore_id, data, ora_inizio, ora_fine);
+		}
 }

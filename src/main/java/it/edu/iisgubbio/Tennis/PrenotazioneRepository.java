@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Integer>{
 	@Query(value="SELECT prenotazione.* "
@@ -31,4 +33,15 @@ public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Inte
 					@Param("dataPre") String dataPre,
 					@Param("aInter") Integer aInter,
 					@Param("zInter") Integer zInter);
+	
+	@Query(value = "INSERT INTO prenotazione(campo_id,giocatore_id,data,ora_inizio,ora_fine)\n"
+					+"VALUES(:campo_id,:giocatore_id,:data,:ora_inizio,:ora_fine)",
+			nativeQuery = true)
+		Void inserisciPrenotazione(
+				@Param("campo_id") Integer campo_id,
+		        @Param("giocatore_id") Integer giocatore_id,
+		        @Param("data") String data,
+		        @Param("ora_inizio") Integer ora_inizio,
+		        @Param("ora_fine") Integer ora_fine
+			);
 }

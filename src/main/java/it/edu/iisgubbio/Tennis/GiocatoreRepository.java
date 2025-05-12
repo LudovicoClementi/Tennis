@@ -18,7 +18,7 @@ public interface GiocatoreRepository extends JpaRepository<Giocatore, Integer> {
             @Param("cognome") String cognome
     );
     
-    @Query(value = "INSERT INTO giocatore(nome,cognome,data_nascita,email,telefono)\n"
+    /*@Query(value = "INSERT INTO giocatore(nome,cognome,data_nascita,email,telefono)\n"
     				+"VALUES(:nome,:cognome,:data_nascita,:email,:telefono)",
     				nativeQuery = true)
     Void inserisciGiocatore(
@@ -27,5 +27,5 @@ public interface GiocatoreRepository extends JpaRepository<Giocatore, Integer> {
             @Param("data_nascita") String data_nascita,
             @Param("email") String email,
             @Param("telefono") String telefono
-    		);
+    		);*/
 }
